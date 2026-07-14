@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<title>線上商品資料助理｜職缺說明</title>
+<style>
+  :root {
+    --cream: #FAF6EE;
+    --butter: #F3E9D6;
+    --wood: #C9A97C;
+    --orange: #E08A3C;
+    --orange-dark: #C97527;
+    --orange-soft: rgba(224, 138, 60, 0.16);
+    --brown: #4A3826;
+    --brown-soft: #6B5642;
+    --line: #E4D9C4;
+    --white: #FFFFFF;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+    background-color: var(--cream);
+    color: var(--brown);
+    line-height: 1.8;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  img { max-width: 100%; display: block; }
+
+  .wrap {
+    width: 100%;
+    max-width: 1140px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(14px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.is-visible { opacity: 1; transform: translateY(0); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .fade-in { opacity: 1; transform: none; transition: none; }
+    html { scroll-behavior: auto; }
+  }
+
+  .deco-circle {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, rgba(224,138,60,0.28), rgba(224,138,60,0) 70%);
+    filter: blur(2px);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .section-quote-mark {
+    position: absolute;
+    font-family: Georgia, serif;
+    font-size: 140px;
+    color: rgba(74, 56, 38, 0.06);
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+  }
+
+  /* ===== IMAGE + FALLBACK ===== */
+  .media-box {
+    position: relative;
+    overflow: hidden;
+    background: var(--butter);
+  }
+  .media-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    position: relative;
+    z-index: 1;
+  }
+  .media-box.img-fallback {
+    background: linear-gradient(135deg, var(--cream) 0%, var(--butter) 55%, var(--orange-soft) 100%);
+  }
+  .media-box.img-fallback::before,
+  .media-box.img-fallback::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    z-index: 1;
+  }
+  .media-box.img-fallback::before {
+    width: 55%; aspect-ratio: 1;
+    background: radial-gradient(circle at 35% 35%, rgba(224,138,60,0.30), rgba(224,138,60,0) 72%);
+    top: -10%; right: -12%; filter: blur(6px);
+  }
+  .media-box.img-fallback::after {
+    width: 40%; aspect-ratio: 1;
+    background: radial-gradient(circle at 65% 65%, rgba(201,169,124,0.35), rgba(201,169,124,0) 72%);
+    bottom: -8%; left: -8%; filter: blur(6px);
+  }
+
+  /* ===== HERO ===== */
+  .hero { padding: 52px 0 40px; position: relative; }
+  .hero-inner { display: flex; flex-direction: column; gap: 28px; position: relative; z-index: 1; }
+  .hero-text { text-align: center; }
+  .hero-eyebrow {
+    display: inline-block;
+    font-size: 14px;
+    letter-spacing: 0.12em;
+    color: var(--orange-dark);
+    font-weight: 700;
+    background: var(--butter);
+    padding: 6px 16px;
+    border-radius: 999px;
+    margin-bottom: 18px;
+  }
+  .hero-title {
+    font-size: 29px;
+    font-weight: 900;
+    color: var(--brown);
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+    margin-bottom: 18px;
+  }
+  .hero-desc {
+    font-size: 16px;
+    color: var(--brown-soft);
+    max-width: 480px;
+    margin: 0 auto 28px;
+    line-height: 1.85;
+  }
+  .hero-image {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    border-radius: 22px;
+    box-shadow: 0 18px 40px rgba(74, 56, 38, 0.12);
+  }
+
+  /* ===== CTA BUTTON ===== */
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--orange);
+    color: var(--white);
+    font-size: 16px;
+    font-weight: 700;
+    padding: 16px 36px;
+    border-radius: 14px;
+    text-decoration: none;
+    min-height: 52px;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    box-shadow: 0 10px 24px rgba(224, 138, 60, 0.30);
+    transition: background 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+    border: none;
+    cursor: pointer;
+  }
+  .cta-btn:hover { background: var(--orange-dark); box-shadow: 0 12px 26px rgba(201, 117, 39, 0.36); }
+  .cta-btn:active { transform: scale(0.98); }
+  .cta-wrap { display: flex; justify-content: center; }
+
+  /* ===== SECTION GENERAL ===== */
+  section { padding: 50px 0; position: relative; }
+  .section-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--brown);
+    text-align: center;
+    margin-bottom: 28px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+  .section-alt { background: var(--butter); }
+
+  .meaning { overflow: hidden; }
+  .meaning p {
+    font-size: 16px;
+    color: var(--brown-soft);
+    max-width: 640px;
+    margin: 0 auto 20px;
+    position: relative;
+    z-index: 1;
+  }
+  .meaning p:last-child { margin-bottom: 0; }
+
+  .work-content { max-width: 680px; margin: 0 auto; position: relative; z-index: 1; }
+  .work-content p { font-size: 16px; color: var(--brown-soft); margin-bottom: 22px; }
+  .work-content p:last-child { margin-bottom: 0; }
+  .work-content strong { color: var(--brown); font-weight: 700; }
+  .divider { width: 48px; height: 3px; background: var(--wood); border-radius: 2px; margin: 24px auto; }
+
+  .strip-image {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 16px 32px rgba(74, 56, 38, 0.10);
+  }
+  .strip-caption {
+    text-align: center;
+    font-size: 15px;
+    color: var(--brown-soft);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .req-list { list-style: none; max-width: 480px; margin: 0 auto; position: relative; z-index: 1; }
+  .req-list li {
+    font-size: 16px;
+    color: var(--brown-soft);
+    padding: 16px 0;
+    border-bottom: 1px solid var(--line);
+    padding-left: 20px;
+    position: relative;
+  }
+  .req-list li::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 24px;
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--orange);
+  }
+  .req-list li:last-child { border-bottom: none; }
+
+  .salary-box {
+    text-align: center;
+    max-width: 480px;
+    margin: 0 auto;
+    background: var(--white);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    padding: 36px 24px;
+    position: relative;
+    z-index: 1;
+  }
+  .salary-amount { font-size: 27px; font-weight: 900; color: var(--orange-dark); margin-bottom: 16px; letter-spacing: 0.01em; }
+  .salary-sub { font-size: 15px; color: var(--brown-soft); line-height: 1.8; }
+
+  .bonus { overflow: hidden; }
+  .bonus-box { text-align: center; max-width: 520px; margin: 0 auto; position: relative; z-index: 1; }
+  .bonus-box p { font-size: 16px; color: var(--brown-soft); margin-bottom: 20px; }
+  .bonus-amount { font-size: 23px; font-weight: 900; color: var(--brown); }
+
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 0;
+    max-width: 640px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+  .benefit-grid div { font-size: 16px; color: var(--brown-soft); padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .benefit-grid div:last-child { border-bottom: none; }
+
+  .closing { text-align: center; overflow: hidden; }
+  .closing-title {
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--brown);
+    margin-bottom: 18px;
+    line-height: 1.6;
+    position: relative;
+    z-index: 1;
+  }
+  .closing-desc {
+    font-size: 16px;
+    color: var(--brown-soft);
+    max-width: 520px;
+    margin: 0 auto 32px;
+    position: relative;
+    z-index: 1;
+  }
+
+  footer { padding: 28px 0 40px; text-align: center; }
+  .footer-note { font-size: 13px; color: var(--brown-soft); opacity: 0.7; }
+
+  @media (min-width: 860px) {
+    .hero { padding: 88px 0 64px; }
+    .hero-inner { flex-direction: row-reverse; align-items: center; gap: 60px; }
+    .hero-text, .hero-image { flex: 1; }
+    .hero-text { text-align: left; }
+    .hero-desc { margin: 0 0 32px; }
+    .hero-title { font-size: 40px; }
+    .cta-wrap { justify-content: flex-start; }
+    .cta-btn { width: auto; margin: 0; }
+    .hero-image { aspect-ratio: 4 / 3; max-width: 480px; }
+
+    section { padding: 84px 0; }
+    .section-title { font-size: 28px; margin-bottom: 36px; }
+
+    .strip-image { aspect-ratio: 16 / 9; }
+
+    .benefit-grid { grid-template-columns: 1fr 1fr; column-gap: 48px; }
+
+    .salary-amount { font-size: 32px; }
+
+    .cta-wrap.center-desktop { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="deco-circle" style="width:220px; top:-40px; left:-60px;"></div>
+    <div class="wrap hero-inner">
+      <div class="hero-text fade-in">
+        <span class="hero-eyebrow">線上商品資料助理</span>
+        <h1 class="hero-title">這份工作，<br>來自你最熟悉的日常</h1>
+        <p class="hero-desc">每一份熟悉的美味背後，都需要有人細心整理商品資訊、進貨紀錄與庫存資料，讓每一項流程保持順暢。</p>
+        <div class="cta-wrap">
+          <a class="cta-btn" href="https://lin.ee/wnj1C5A">立即了解工作內容</a>
+        </div>
+      </div>
+      <div class="hero-image media-box fade-in">
+        <img
+          src="images/hero-food.jpg"
+          alt="產品情境照，饅頭與黑芝麻包擺設於暖色調背景"
+          loading="lazy"
+          onerror="this.parentElement.classList.add('img-fallback'); this.remove();">
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 2 -->
+  <section class="meaning">
+    <span class="section-quote-mark" style="top:10px; right:6%;">＂</span>
+    <div class="wrap fade-in">
+      <h2 class="section-title">熟悉的商品，也需要細心的整理</h2>
+      <p>隨著新品上市、季節商品及不同通路的商品資訊持續更新，每天都會產生新的商品資料、進貨紀錄與庫存資訊。</p>
+      <p>這份工作的重點，是依照既定流程整理與維護資料，讓不同系統中的商品資訊保持完整，也讓後續作業能夠順利進行。</p>
+    </div>
+  </section>
+
+  <!-- SECTION 3 -->
+  <section class="section-alt">
+    <div class="wrap fade-in">
+      <h2 class="section-title">你每天會協助完成的工作</h2>
+      <div class="work-content">
+        <p>每天開始工作後，你會依照提供的商品資料，整理<strong>商品名稱、規格及基本資訊</strong>，並將供應商的進貨紀錄確認完整後更新至系統。</p>
+        <div class="divider"></div>
+        <p>接著依照作業流程<strong>統計商品數量、更新庫存資訊</strong>，整理每日工作紀錄及簡易報表，最後提交主管確認。</p>
+        <div class="divider"></div>
+        <p>工作也會包含部分行政文件與相關資料的整理，主要目的是維持不同資料之間的<strong>正確性與一致性</strong>。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 4 -->
+  <section class="image-strip">
+    <div class="wrap fade-in">
+      <div class="strip-image media-box">
+        <img
+          src="images/food-products.jpg"
+          alt="包子切半特寫，搭配辣醬與蔥段"
+          loading="lazy"
+          onerror="this.parentElement.classList.add('img-fallback'); this.remove();">
+      </div>
+      <p class="strip-caption">每一項正確的資料，都讓熟悉的美味順利走進更多人的日常。</p>
+    </div>
+  </section>
+
+  <!-- SECTION 5 -->
+  <section class="requirements section-alt">
+    <div class="wrap fade-in">
+      <h2 class="section-title">我們希望你具備</h2>
+      <ul class="req-list">
+        <li>熟悉基本電腦操作</li>
+        <li>能依照作業流程完成工作</li>
+        <li>細心整理資料</li>
+        <li>具責任感及配合度</li>
+        <li>能準時完成每日工作</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SECTION 6 -->
+  <section class="salary">
+    <div class="deco-circle" style="width:180px; bottom:-30px; right:-50px;"></div>
+    <div class="wrap fade-in">
+      <h2 class="section-title">薪資與工作安排</h2>
+      <div class="salary-box">
+        <div class="salary-amount">NT$15,600－22,300 元／月</div>
+        <div class="salary-sub">每週約 12－16 小時<br>依工作表現及考核逐步調整</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 7 -->
+  <section class="bonus section-alt">
+    <span class="section-quote-mark" style="bottom:-30px; left:6%;">＂</span>
+    <div class="wrap fade-in">
+      <h2 class="section-title">每一次用心，都有被看見的機會</h2>
+      <div class="bonus-box">
+        <p>每月將依據工作品質、資料正確率、配合度及工作效率進行評估，提供相對應的績效獎勵。</p>
+        <div class="bonus-amount">每月最高 NT$3,000 元</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 8 -->
+  <section class="benefits">
+    <div class="wrap fade-in">
+      <h2 class="section-title">陪你從熟悉流程開始</h2>
+      <div class="benefit-grid">
+        <div>完整教育訓練</div>
+        <div>一對一新人教學</div>
+        <div>SOP 作業流程</div>
+        <div>定期能力培訓</div>
+        <div>績效獎勵制度</div>
+        <div>三節禮品（依公司制度）</div>
+        <div>員工商品優惠（依公司制度）</div>
+        <div>長期合作發展機會</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 9 -->
+  <section class="closing section-alt">
+    <div class="deco-circle" style="width:260px; top:-60px; left:50%; transform:translateX(-50%);"></div>
+    <div class="wrap fade-in">
+      <h2 class="closing-title">熟悉的日常背後，<br>也可以有你的一份用心</h2>
+      <p class="closing-desc">從商品資料整理、庫存資訊更新，到每日報表完成，每一項看似平凡的工作，都是讓整體流程穩定運作的重要一環。</p>
+      <div class="cta-wrap center-desktop">
+        <a class="cta-btn" href="https://lin.ee/wnj1C5A">立即了解工作內容</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p class="footer-note">職缺內容如有異動，依實際公告為準。</p>
+  </footer>
+
+  <script>
+    (function () {
+      var items = document.querySelectorAll('.fade-in');
+      if (!('IntersectionObserver' in window)) {
+        items.forEach(function (el) { el.classList.add('is-visible'); });
+        return;
+      }
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach(function (el) { observer.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
