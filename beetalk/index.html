@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>社群互動專員｜夥伴招募計畫</title>
+<meta name="description" content="社群互動專員招募，工作內容包含會員文字互動、新會員引導、社群維護與互動紀錄整理。">
+
+<style>
+/* ==========================================================
+   一、CSS 變數集中管理（可直接於此處修改配色）
+   ========================================================== */
+:root {
+  --primary: #F4B400;
+  --primary-soft: #FFF3C4;
+  --background: #FFFDF8;
+  --surface: #FFFFFF;
+  --text: #202020;
+  --muted: #6D6D6D;
+  --dark: #171717;
+
+  --radius-lg: 20px;
+  --radius-md: 14px;
+  --shadow-soft: 0 8px 24px rgba(23, 23, 23, 0.06);
+  --max-width: 460px;
+}
+
+/* ==========================================================
+   二、基礎重置
+   ========================================================== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+  line-height: 1.7;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+/* ==========================================================
+   三、頂部導覽列 nav-bar
+   ========================================================== */
+.nav-bar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: rgba(255, 253, 248, 0.92);
+  backdrop-filter: saturate(180%) blur(6px);
+  border-bottom: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.nav-bar__inner {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.nav-bar__title {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.nav-bar__link {
+  font-size: 13px;
+  color: var(--muted);
+  padding: 6px 10px;
+  border-radius: 999px;
+  transition: color 0.2s ease, background 0.2s ease;
+}
+
+.nav-bar__link:hover {
+  color: var(--dark);
+  background: var(--primary-soft);
+}
+
+/* ==========================================================
+   四、HERO 首屏 hero
+   ========================================================== */
+.hero {
+  padding: 48px 0 40px;
+}
+
+.hero__tag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--dark);
+  background: var(--primary-soft);
+  padding: 6px 14px;
+  border-radius: 999px;
+  letter-spacing: 0.02em;
+}
+
+.hero__title {
+  margin-top: 20px;
+  font-size: 30px;
+  line-height: 1.45;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
+.hero__subtitle {
+  margin-top: 16px;
+  font-size: 15px;
+  color: var(--text);
+}
+
+.hero__desc {
+  margin-top: 12px;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.hero__tags {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hero__tags span {
+  font-size: 12px;
+  color: var(--dark);
+  background: var(--surface);
+  border: 1px solid rgba(23, 23, 23, 0.08);
+  padding: 7px 12px;
+  border-radius: 999px;
+}
+
+/* ==========================================================
+   五、按鈕共用樣式 cta-button
+   ========================================================== */
+.cta-button {
+  display: block;
+  width: 100%;
+  text-align: center;
+  background: var(--dark);
+  color: #FFFDF8;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 16px 20px;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  transition: transform 0.15s ease, opacity 0.2s ease;
+}
+
+.cta-button:hover {
+  opacity: 0.92;
+}
+
+.cta-button:active {
+  transform: scale(0.98);
+}
+
+.hero .cta-button {
+  margin-top: 28px;
+}
+
+/* ==========================================================
+   六、共用區塊間距與標題 section
+   ========================================================== */
+section {
+  padding: 40px 0;
+}
+
+.section-title {
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+/* ==========================================================
+   七、故事區 story-section
+   ========================================================== */
+.story-section p {
+  font-size: 14px;
+  color: var(--muted);
+}
+
+/* ==========================================================
+   八、工作內容區 job-section
+   ========================================================== */
+.job-section {
+  scroll-margin-top: 70px;
+}
+
+.job-card {
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 22px;
+  margin-bottom: 14px;
+}
+
+.job-card__number {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: 0.06em;
+}
+
+.job-card__title {
+  margin-top: 6px;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.job-card__desc {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================
+   九、適合對象區 fit-section
+   ========================================================== */
+.fit-list {
+  list-style: none;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 22px;
+}
+
+.fit-list li {
+  position: relative;
+  padding-left: 20px;
+  font-size: 14px;
+  margin-bottom: 12px;
+}
+
+.fit-list li:last-child {
+  margin-bottom: 0;
+}
+
+.fit-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 9px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--primary);
+}
+
+.fit-section__note {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================
+   十、合作流程區 process-section
+   ========================================================== */
+.process-card {
+  display: flex;
+  gap: 14px;
+  background: var(--surface);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  padding: 20px;
+  margin-bottom: 14px;
+  align-items: flex-start;
+}
+
+.process-card__step {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--primary-soft);
+  color: var(--dark);
+  font-size: 13px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.process-card__title {
+  font-size: 15px;
+  font-weight: 700;
+}
+
+.process-card__desc {
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================
+   十一、福利制度區 benefits-section
+   ========================================================== */
+.benefit-card {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
+  margin-bottom: 10px;
+  border: 1px solid rgba(23, 23, 23, 0.06);
+}
+
+.benefit-card__title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.benefit-card__desc {
+  margin-top: 4px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================
+   十二、常見問題區 faq-section
+   ========================================================== */
+.faq-item {
+  background: var(--surface);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+
+.faq-item summary {
+  padding: 16px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  font-size: 18px;
+  color: var(--muted);
+  transition: transform 0.2s ease;
+}
+
+.faq-item[open] summary::after {
+  transform: rotate(45deg);
+}
+
+.faq-item p {
+  padding: 0 20px 18px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* ==========================================================
+   十三、情境圖片區 scene-section
+   ========================================================== */
+.scene-section img {
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: var(--radius-lg);
+}
+
+.scene-section__caption {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ==========================================================
+   十四、底部 CTA 區 cta-section
+   ========================================================== */
+.cta-section {
+  text-align: center;
+}
+
+.cta-section .section-title {
+  text-align: left;
+}
+
+.cta-section__desc {
+  font-size: 14px;
+  color: var(--muted);
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+.cta-section__note {
+  margin-top: 12px;
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ==========================================================
+   十五、頁尾 footer
+   ========================================================== */
+footer {
+  padding: 32px 0 48px;
+  text-align: center;
+}
+
+footer p {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+
+/* ==========================================================
+   十六、捲動淡入效果
+   ========================================================== */
+.fade-in {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.fade-in.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- ==========================================================
+     頂部導覽列
+     ========================================================== -->
+<nav class="nav-bar">
+  <div class="nav-bar__inner">
+    <span class="nav-bar__title">社群互動夥伴計畫</span>
+    <a href="#job-details" class="nav-bar__link">了解職務</a>
+  </div>
+</nav>
+
+<div class="page">
+
+  <!-- ==========================================================
+       HERO 首屏
+       ========================================================== -->
+  <section class="hero">
+    <span class="hero__tag">社群互動專員｜夥伴招募中</span>
+    <h1 class="hero__title">有些回憶，不該只留在青春裡</h1>
+    <p class="hero__subtitle">熟悉的平台交流方式，正在尋找新的夥伴，一起延續每一次有溫度的對話。</p>
+    <p class="hero__desc">透過日常文字互動、會員引導與社群維護，陪伴更多人享受自在、友善且安全的交流體驗。</p>
+    <div class="hero__tags">
+      <span>文字互動</span>
+      <span>完整培訓</span>
+      <span>線上協作</span>
+      <span>長期合作</span>
+    </div>
+    <a href="https://www.1234" class="cta-button">了解職務內容</a>
+  </section>
+
+  <!-- ==========================================================
+       故事區
+       ========================================================== -->
+  <section class="story-section fade-in">
+    <h2 class="section-title">每一段好的交流，背後都有人用心維護</h2>
+    <p>一個讓人願意停留的社群，不只需要功能，也需要有人細心回覆、耐心引導並維持良好的互動氛圍。我們正在尋找喜歡文字交流、懂得傾聽，也願意陪伴他人的夥伴，參與日常社群營運。</p>
+  </section>
+
+  <!-- ==========================================================
+       工作內容區
+       ========================================================== -->
+  <section class="job-section" id="job-details">
+    <h2 class="section-title fade-in">你會參與的日常</h2>
+
+    <div class="job-card fade-in">
+      <div class="job-card__number">01｜會員文字互動</div>
+      <div class="job-card__title">日常文字交流</div>
+      <p class="job-card__desc">依照平台規範與會員進行日常文字交流，提供自然、友善且適當的回應。</p>
+    </div>
+
+    <div class="job-card fade-in">
+      <div class="job-card__number">02｜新會員使用引導</div>
+      <div class="job-card__title">功能與規範說明</div>
+      <p class="job-card__desc">協助新加入的會員熟悉基本功能、操作方式與社群規範。</p>
+    </div>
+
+    <div class="job-card fade-in">
+      <div class="job-card__number">03｜社群氛圍維護</div>
+      <div class="job-card__title">安全友善的環境</div>
+      <p class="job-card__desc">留意互動狀況，協助維持安全、尊重且自在的交流環境。</p>
+    </div>
+
+    <div class="job-card fade-in">
+      <div class="job-card__number">04｜互動紀錄整理</div>
+      <div class="job-card__title">流程與資料更新</div>
+      <p class="job-card__desc">依照工作流程完成會員互動紀錄、案件分類與基本資料更新。</p>
+    </div>
+
+    <div class="job-card fade-in">
+      <div class="job-card__number">05｜活動與營運支援</div>
+      <div class="job-card__title">日常協作事項</div>
+      <p class="job-card__desc">配合社群活動、會員通知及日常營運需求，完成相關協作事項。</p>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       適合對象區
+       ========================================================== -->
+  <section class="fit-section fade-in">
+    <h2 class="section-title">這份工作，適合這樣的你</h2>
+    <ul class="fit-list">
+      <li>喜歡透過文字與人交流</li>
+      <li>中文表達清楚且具備基本禮貌</li>
+      <li>做事細心，能依照流程完成紀錄</li>
+      <li>面對不同情況仍能保持耐心</li>
+      <li>具備基本手機與電腦操作能力</li>
+      <li>願意接受培訓並遵守社群規範</li>
+    </ul>
+    <p class="fit-section__note">無相關經驗也可以，重點是願意學習、穩定配合，並重視每一次互動的品質。</p>
+  </section>
+
+  <!-- ==========================================================
+       合作流程區
+       ========================================================== -->
+  <section class="process-section">
+    <h2 class="section-title fade-in">清楚的流程，讓你更安心開始</h2>
+
+    <div class="process-card fade-in">
+      <div class="process-card__step">1</div>
+      <div>
+        <div class="process-card__title">填寫基本資料</div>
+        <p class="process-card__desc">留下個人資料、可配合時段及相關經驗。</p>
+      </div>
+    </div>
+
+    <div class="process-card fade-in">
+      <div class="process-card__step">2</div>
+      <div>
+        <div class="process-card__title">條件初步評估</div>
+        <p class="process-card__desc">團隊依照填寫內容確認是否符合合作需求。</p>
+      </div>
+    </div>
+
+    <div class="process-card fade-in">
+      <div class="process-card__step">3</div>
+      <div>
+        <div class="process-card__title">線上說明與培訓</div>
+        <p class="process-card__desc">了解實際工作內容、平台規範與標準作業流程。</p>
+      </div>
+    </div>
+
+    <div class="process-card fade-in">
+      <div class="process-card__step">4</div>
+      <div>
+        <div class="process-card__title">開始參與</div>
+        <p class="process-card__desc">完成培訓與評估後，依照工作安排開始協作。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       福利制度區
+       ========================================================== -->
+  <section class="benefits-section">
+    <h2 class="section-title fade-in">不只開始，也能持續累積</h2>
+
+    <div class="benefit-card fade-in">
+      <div class="benefit-card__title">完整線上培訓</div>
+      <p class="benefit-card__desc">提供工作流程、互動規範與常見情境說明。</p>
+    </div>
+
+    <div class="benefit-card fade-in">
+      <div class="benefit-card__title">新人帶領制度</div>
+      <p class="benefit-card__desc">由專人協助熟悉工作內容與平台操作。</p>
+    </div>
+
+    <div class="benefit-card fade-in">
+      <div class="benefit-card__title">明確作業流程</div>
+      <p class="benefit-card__desc">提供標準工作指引，降低初期適應負擔。</p>
+    </div>
+
+    <div class="benefit-card fade-in">
+      <div class="benefit-card__title">線上團隊支援</div>
+      <p class="benefit-card__desc">工作期間可透過內部管道取得主管與團隊協助。</p>
+    </div>
+
+    <div class="benefit-card fade-in">
+      <div class="benefit-card__title">服務品質獎勵</div>
+      <p class="benefit-card__desc">依互動品質、紀錄完整度及整體配合情況評估。</p>
+    </div>
+
+    <div class="benefit-card fade-in">
+      <div class="benefit-card__title">季度調整機會</div>
+      <p class="benefit-card__desc">依工作能力、穩定度及考核結果安排後續發展。</p>
+    </div>
+
+    <div class="benefit-card fade-in">
+      <div class="benefit-card__title">長期合作制度</div>
+      <p class="benefit-card__desc">表現穩定者可持續參與相關社群營運與專案。</p>
+    </div>
+
+    <div class="benefit-card fade-in">
+      <div class="benefit-card__title">節慶與專案獎勵</div>
+      <p class="benefit-card__desc">依制度及特定活動提供額外鼓勵。</p>
+    </div>
+  </section>
+
+  <!-- ==========================================================
+       常見問題區
+       ========================================================== -->
+  <section class="faq-section">
+    <h2 class="section-title fade-in">常見問題</h2>
+
+    <details class="faq-item fade-in">
+      <summary>這份工作需要露臉、語音或視訊嗎？</summary>
+      <p>主要以文字互動與資料整理為主，實際工作方式將於後續說明中確認。</p>
+    </details>
+
+    <details class="faq-item fade-in">
+      <summary>沒有社群客服經驗可以參加嗎？</summary>
+      <p>可以。團隊會提供基本培訓與工作流程，但仍需具備良好的文字表達、耐心及學習意願。</p>
+    </details>
+
+    <details class="faq-item fade-in">
+      <summary>工作內容是否涉及成人或情色互動？</summary>
+      <p>不涉及。所有互動均須遵守社群規範，不得進行成人、情色、金錢交易或其他不當內容。</p>
+    </details>
+
+    <details class="faq-item fade-in">
+      <summary>填寫資料後一定會收到通知嗎？</summary>
+      <p>團隊將依照實際需求與填寫內容進行評估，符合條件者會再收到後續聯繫。</p>
+    </details>
+  </section>
+
+  <!-- ==========================================================
+       情境圖片區
+       ========================================================== -->
+  <section class="scene-section fade-in">
+    <img src="images/community-scene.jpg" alt="使用手機參與社群文字互動的生活情境" loading="lazy">
+    <p class="scene-section__caption">每一次自然的回覆，都可能成為一段美好交流的開始。</p>
+  </section>
+
+  <!-- ==========================================================
+       底部 CTA 區
+       ========================================================== -->
+  <section class="cta-section fade-in">
+    <h2 class="section-title">熟悉的交流，期待由新的夥伴一起延續</h2>
+    <p class="cta-section__desc">喜歡文字互動，也願意用耐心陪伴每一次交流嗎？留下基本資料，進一步了解這份社群互動工作。</p>
+    <a href="https://www.1234" class="cta-button">了解職務內容</a>
+    <p class="cta-section__note">填寫資料僅供本次職務評估使用，實際合作內容以後續說明為準。</p>
+  </section>
+
+</div>
+
+<!-- ==========================================================
+     頁尾
+     ========================================================== -->
+<footer>
+  <p>
+    社群互動夥伴招募計畫<br>
+    本頁資訊僅供職務說明與合作評估使用
+  </p>
+</footer>
+
+<!-- ==========================================================
+     JavaScript：僅用於平滑捲動與捲動淡入效果
+     ========================================================== -->
+<script>
+  // 導覽列「了解職務」平滑捲動至工作內容區
+  document.querySelectorAll('a[href^="#"]').forEach(function (link) {
+    link.addEventListener('click', function (e) {
+      var target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        e.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // 捲動淡入：使用 IntersectionObserver，元素進入畫面時加上 is-visible
+  var faders = document.querySelectorAll('.fade-in');
+  if ('IntersectionObserver' in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    faders.forEach(function (el) { observer.observe(el); });
+  } else {
+    faders.forEach(function (el) { el.classList.add('is-visible'); });
+  }
+</script>
+
+</body>
+</html>
