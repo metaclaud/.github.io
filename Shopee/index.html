@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>電商客服專員 招募中</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --orange: #EE4D2D;
+    --orange-tint: #FFF0EA;
+    --navy: #1B3A5C;
+    --navy-tint: #EAF1F7;
+    --gold: #F0A500;
+    --gold-tint: #FFF6DE;
+    --sage: #3D7A5C;
+    --sage-tint: #EAF5EE;
+    --ink: #1C1917;
+    --ink-soft: #6E655D;
+    --paper: #FCFAF8;
+    --line: #E7E1DA;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Noto Sans TC', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    -webkit-font-smoothing:antialiased;
+    max-width: 460px;
+    margin: 0 auto;
+    overflow-x:hidden;
+  }
+
+  /* ---------- CTA BUTTON (shared, identical text top/bottom) ---------- */
+  .cta-btn{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    width:100%;
+    padding:15px 20px;
+    background: var(--orange);
+    color:#fff;
+    font-weight:700;
+    font-size:15.5px;
+    letter-spacing:0.5px;
+    text-decoration:none;
+    border-radius: 3px;
+    transition: opacity .15s ease;
+  }
+  .cta-btn:active{ opacity:0.85; }
+
+  /* ---------- TOP BAR ---------- */
+  .topbar{
+    position: sticky;
+    top:0;
+    z-index: 50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:14px;
+    padding:14px 20px;
+    background: rgba(252,250,248,0.94);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topbar .brand{
+    font-weight:700; font-size:13.5px; color:var(--ink);
+    letter-spacing:0.5px;
+    white-space:nowrap;
+  }
+  .topbar .brand em{
+    font-style:normal;
+    color:var(--orange);
+  }
+  .topbar .cta-btn{
+    padding:9px 20px;
+    font-size:13px;
+    width:auto;
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    padding: 48px 24px 40px;
+    background: var(--orange);
+    color:#fff;
+  }
+  .hero-eyebrow{
+    display:inline-block;
+    font-size:11.5px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+    padding:5px 11px;
+    border-radius:3px;
+    margin-bottom:20px;
+  }
+  .hero h1{
+    font-size:27px;
+    font-weight:900;
+    line-height:1.5;
+    letter-spacing:0.5px;
+    margin-bottom:16px;
+    color:#fff;
+  }
+  .hero h1 em{
+    font-style:normal;
+    border-bottom: 3px solid rgba(255,255,255,0.65);
+  }
+  .hero p.sub{
+    font-size:14px;
+    line-height:1.85;
+    color: rgba(255,255,255,0.88);
+    margin-bottom:28px;
+  }
+  .hero .cta-btn{
+    margin-bottom:18px;
+    background:#fff;
+    color: var(--orange);
+  }
+  .hero .meta-line{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
+  }
+  .meta-chip{
+    font-size:11.5px;
+    font-weight:700;
+    padding:6px 11px;
+    border-radius:3px;
+    background: rgba(255,255,255,0.16);
+    color:#fff;
+  }
+
+  /* ---------- SECTION SHELL ---------- */
+  section.block{ padding: 40px 24px; border-bottom:1px solid var(--line); }
+  .section-num{
+    display:inline-block;
+    font-size:11px;
+    font-weight:700;
+    letter-spacing:1.5px;
+    margin-bottom:12px;
+    padding:4px 10px;
+    border-radius:3px;
+  }
+  .section-num.n-orange{ color:var(--orange); background:var(--orange-tint); }
+  .section-num.n-navy{ color:var(--navy); background:var(--navy-tint); }
+  .section-num.n-gold{ color:#8A6200; background:var(--gold-tint); }
+  .section-num.n-sage{ color:var(--sage); background:var(--sage-tint); }
+
+  h2.section-title{
+    font-size:19px;
+    font-weight:900;
+    margin-bottom:8px;
+    letter-spacing:0.3px;
+  }
+  p.section-desc{
+    font-size:13px;
+    color: var(--ink-soft);
+    line-height:1.8;
+    margin-bottom:26px;
+  }
+
+  /* ---------- 工作內容: 條列 + 色塊編號 ---------- */
+  .flow{ display:flex; flex-direction:column; }
+  .flow-item{
+    display:flex;
+    gap:16px;
+    padding:18px 0;
+    border-top:1px solid var(--line);
+  }
+  .flow-item:first-child{ border-top:none; }
+  .flow-index{
+    flex-shrink:0;
+    width:30px; height:30px;
+    border-radius:5px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:12.5px; font-weight:900;
+    color:#fff;
+  }
+  .flow-item:nth-child(1) .flow-index{ background:var(--orange); }
+  .flow-item:nth-child(2) .flow-index{ background:var(--navy); }
+  .flow-item:nth-child(3) .flow-index{ background:var(--sage); }
+  .flow-item:nth-child(4) .flow-index{ background:#8A6200; }
+  .flow-item:nth-child(5) .flow-index{ background:var(--orange); }
+  .flow-body h3{
+    font-size:14.5px; font-weight:700; margin-bottom:5px;
+  }
+  .flow-body p{
+    font-size:12.5px; color:var(--ink-soft); line-height:1.75;
+  }
+
+  /* ---------- PAY: 深色卡片 ---------- */
+  .pay-card{
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.14);
+    border-radius:8px;
+    padding:22px 20px;
+  }
+  .pay-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:baseline;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,0.14);
+  }
+  .pay-row:last-child{ border-bottom:none; }
+  .pay-row .label{ font-size:12.5px; color:rgba(255,255,255,0.72); }
+  .pay-row .value{ font-size:15px; font-weight:900; color:#fff; }
+  .pay-row .value em{ font-style:normal; color:var(--gold); }
+  .pay-note{
+    margin-top:16px;
+    font-size:11.5px;
+    color:var(--ink-soft);
+    line-height:1.8;
+  }
+
+  /* ---------- TAG LIST (工作方式 / 應徵條件) ---------- */
+  .tag-list{ display:flex; flex-direction:column; }
+  .tag-item{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    padding:14px 0;
+    border-top:1px solid var(--line);
+    font-size:13px;
+    line-height:1.75;
+    color: var(--ink);
+  }
+  .tag-item:first-child{ border-top:none; }
+  .tag-item .mark{
+    flex-shrink:0;
+    width:18px; height:18px;
+    border-radius:50%;
+    font-size:11px;
+    font-weight:900;
+    display:flex; align-items:center; justify-content:center;
+    margin-top:1px;
+    color:#fff;
+  }
+  .tag-list.sage .mark{ background:var(--sage); }
+  .tag-list.gold .mark{ background:#B87E00; }
+
+  /* ---------- 福利: 兩欄色塊清單 ---------- */
+  .benefit-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap:10px;
+  }
+  .benefit-item{
+    padding:16px 14px;
+    border-radius:6px;
+    background:#fff;
+    border-left:3px solid var(--orange);
+  }
+  .benefit-item:nth-child(6n+2){ border-left-color:var(--navy); }
+  .benefit-item:nth-child(6n+3){ border-left-color:var(--sage); }
+  .benefit-item:nth-child(6n+4){ border-left-color:#B87E00; }
+  .benefit-item:nth-child(6n+5){ border-left-color:var(--sage); }
+  .benefit-item:nth-child(6n+6){ border-left-color:var(--orange); }
+  .benefit-item p{ font-size:12.5px; color:var(--ink); line-height:1.6; font-weight:500; }
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    padding: 44px 24px 48px;
+    background: var(--orange-tint);
+  }
+  .closing .quote{
+    font-size:14px;
+    line-height:2;
+    color: var(--ink-soft);
+    margin-bottom:26px;
+  }
+  .closing .quote b{ color:var(--ink); font-weight:700; }
+
+  footer{
+    padding:20px 24px 32px;
+    font-size:10.5px;
+    color: var(--ink-soft);
+    opacity:0.7;
+    line-height:1.6;
+    background: var(--orange-tint);
+  }
+</style>
+</head>
+<body>
+
+  <!-- TOP BAR / TOP CTA -->
+  <div class="topbar">
+    <div class="brand">電商購物 <em>客服招募</em></div>
+    <a class="cta-btn" href="https://www.1234.com">立即應徵</a>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <span class="hero-eyebrow">電商客服專員・長期兼職／正職</span>
+    <h1>把每一句「請問」<br>接成<em>顧客安心的開始</em></h1>
+    <p class="sub">
+      商品諮詢、訂單查詢、售後服務——電商客服團隊招募新夥伴，
+      提供完整教育訓練與客服系統教學，無經驗可，時薪 NT$190 起。
+    </p>
+
+    <a class="cta-btn" href="https://www.1234.com">立即應徵</a>
+
+    <div class="meta-line">
+      <span class="meta-chip c1">時薪 NT$190－250</span>
+      <span class="meta-chip c2">可排班／輪班</span>
+      <span class="meta-chip c3">免經驗可</span>
+    </div>
+  </div>
+
+  <!-- 工作內容 -->
+  <section class="block" style="background:var(--orange-tint);">
+    <span class="section-num n-orange">01 — 工作內容</span>
+    <h2 class="section-title">五個環節，一次做好</h2>
+    <p class="section-desc">從第一句回覆到案件結案，串起完整的服務流程。</p>
+
+    <div class="flow">
+      <div class="flow-item">
+        <span class="flow-index">01</span>
+        <div class="flow-body">
+          <h3>顧客訊息回覆</h3>
+          <p>透過線上客服系統回覆商品、訂單、付款、物流及活動相關問題。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-index">02</span>
+        <div class="flow-body">
+          <h3>訂單查詢與售後協助</h3>
+          <p>協助查詢訂單狀態、配送進度，處理退貨、退款、換貨事宜。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-index">03</span>
+        <div class="flow-body">
+          <h3>客服案件紀錄整理</h3>
+          <p>依規範建立服務紀錄，整理顧客反映事項及處理內容。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-index">04</span>
+        <div class="flow-body">
+          <h3>客戶需求追蹤</h3>
+          <p>追蹤未完成案件，主動更新進度，與相關單位協調後續作業。</p>
+        </div>
+      </div>
+      <div class="flow-item">
+        <span class="flow-index">05</span>
+        <div class="flow-body">
+          <h3>工作進度回報</h3>
+          <p>依部門規範完成每日工作，與主管保持聯繫確保服務效率。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 薪資待遇 -->
+  <section class="block" style="background:var(--navy); border-bottom:1px solid var(--navy);">
+    <span class="section-num" style="background:rgba(255,255,255,0.14); color:#fff;">02 — 薪資待遇</span>
+    <h2 class="section-title" style="color:#fff;">時薪透明，做多少領多少</h2>
+    <p class="section-desc" style="color:rgba(255,255,255,0.7);">依工作內容、經驗及考核結果核定，另有績效與全勤獎勵。</p>
+
+    <div class="pay-card">
+      <div class="pay-row">
+        <span class="label">一般客服人員</span>
+        <span class="value"><em>NT$190－220</em> / 時</span>
+      </div>
+      <div class="pay-row">
+        <span class="label">具客服相關經驗者</span>
+        <span class="value"><em>NT$220－250</em> / 時</span>
+      </div>
+      <div class="pay-row">
+        <span class="label">表現優良／通過考核</span>
+        <span class="value">依表現調整</span>
+      </div>
+    </div>
+    <p class="pay-note" style="color:rgba(255,255,255,0.55);">另提供績效獎勵、全勤獎勵（依公司規定）、國定假日出勤依法給薪。</p>
+  </section>
+
+  <!-- 工作方式 -->
+  <section class="block" style="background:var(--sage-tint);">
+    <span class="section-num n-sage">03 — 工作方式</span>
+    <h2 class="section-title">排班彈性，訓練到位</h2>
+    <div class="tag-list sage">
+      <div class="tag-item"><span class="mark">✓</span>採長期兼職／正職合作，依公司排班安排工作時段。</div>
+      <div class="tag-item"><span class="mark">✓</span>可配合平日、假日或輪班。</div>
+      <div class="tag-item"><span class="mark">✓</span>提供完整教育訓練及客服系統操作教學。</div>
+      <div class="tag-item"><span class="mark">✓</span>表現優良者可優先安排進階客服職務及長期合作機會。</div>
+    </div>
+  </section>
+
+  <!-- 應徵條件 -->
+  <section class="block" style="background:var(--gold-tint);">
+    <span class="section-num n-gold">04 — 應徵條件</span>
+    <h2 class="section-title">不限經驗，重視服務態度</h2>
+    <div class="tag-list gold">
+      <div class="tag-item"><span class="mark">✓</span>學經歷不拘。</div>
+      <div class="tag-item"><span class="mark">✓</span>熟悉基本電腦操作及中文輸入。</div>
+      <div class="tag-item"><span class="mark">✓</span>具備良好的文字表達與溝通能力。</div>
+      <div class="tag-item"><span class="mark">✓</span>做事細心、有耐心，具服務熱忱。</div>
+      <div class="tag-item"><span class="mark">✓</span>無相關經驗可，提供完整教育訓練。</div>
+    </div>
+  </section>
+
+  <!-- 公司福利 -->
+  <section class="block" style="border-bottom:none; background:var(--navy-tint);">
+    <span class="section-num n-orange">05 — 公司福利</span>
+    <h2 class="section-title">新人不孤單，升遷有制度</h2>
+    <div class="benefit-grid">
+      <div class="benefit-item"><p>完整新人教育訓練及客服系統教學</p></div>
+      <div class="benefit-item"><p>標準化客服作業流程及服務指引</p></div>
+      <div class="benefit-item"><p>良好的團隊合作環境</p></div>
+      <div class="benefit-item"><p>員工購物優惠</p></div>
+      <div class="benefit-item"><p>完整升遷制度及教育訓練</p></div>
+      <div class="benefit-item"><p>專人協助工作流程及問題諮詢</p></div>
+    </div>
+  </section>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <p class="quote">
+      <b>每一次真誠且專業的服務</b>，都能帶給顧客更好的購物體驗。<br>
+      如果你喜歡與人互動、重視服務品質，期待你的加入。
+    </p>
+    <a class="cta-btn" href="https://www.1234.com">立即應徵</a>
+  </div>
+
+  <footer>
+    電商客服團隊招募｜此頁面僅為職缺說明，實際內容依公司公告為準
+  </footer>
+
+</body>
+</html>
