@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>找到適合你的下一份工作</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F7F4EE;
+    --ink:#20303D;
+    --ink-soft:#5A6B76;
+    --amber:#B8752E;
+    --amber-deep:#9A5E22;
+    --teal:#3E6259;
+    --teal-soft:#E7EEEA;
+    --line:#E3DDCF;
+    --card:#FFFFFF;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",sans-serif;
+    line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{
+    max-width:430px;
+    margin:0 auto;
+    background:var(--paper);
+    min-height:100vh;
+    position:relative;
+    overflow:hidden;
+  }
+  .display{
+    font-family:"Noto Serif TC",serif;
+    letter-spacing:0.01em;
+  }
+  section{
+    padding:56px 28px;
+  }
+
+  /* ---------- Sticky top bar ---------- */
+  .topbar{
+    position:sticky;
+    top:0;
+    z-index:50;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 20px;
+    background:rgba(247,244,238,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line);
+  }
+  .topbar .brand{
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:16px;
+    color:var(--ink);
+    letter-spacing:0.04em;
+  }
+  .topbar .brand span{color:var(--amber);}
+  .cta-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    gap:6px;
+    background:var(--amber);
+    color:#FFF9F0;
+    font-weight:700;
+    text-decoration:none;
+    border-radius:999px;
+    white-space:nowrap;
+    transition:transform .15s ease, background .15s ease;
+    box-shadow:0 6px 16px rgba(184,117,46,0.28);
+  }
+  .cta-btn:active{ transform:scale(0.97); background:var(--amber-deep); }
+  .cta-btn.small{ padding:9px 18px; font-size:13px; box-shadow:none; }
+  .cta-btn.large{ padding:16px 0; width:100%; font-size:16px; }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:44px 28px 40px;
+    position:relative;
+  }
+  .hero::after{
+    content:"";
+    position:absolute;
+    right:-40px;
+    top:-30px;
+    width:170px;
+    height:170px;
+    border-radius:50%;
+    background:radial-gradient(circle at 30% 30%, rgba(184,117,46,0.16), rgba(184,117,46,0) 70%);
+    z-index:0;
+  }
+  .eyebrow{
+    display:inline-block;
+    font-size:12px;
+    font-weight:700;
+    color:var(--teal);
+    background:var(--teal-soft);
+    padding:5px 12px;
+    border-radius:999px;
+    letter-spacing:0.08em;
+    margin-bottom:18px;
+  }
+  .hero h1{
+    position:relative;
+    font-size:29px;
+    font-weight:900;
+    line-height:1.5;
+    color:var(--ink);
+    margin-bottom:6px;
+  }
+  .hero .hero-sub{
+    position:relative;
+    font-size:16px;
+    color:var(--ink-soft);
+    margin-top:14px;
+    margin-bottom:22px;
+  }
+  .hero .hero-body{
+    position:relative;
+    font-size:15px;
+    color:var(--ink-soft);
+    margin-bottom:30px;
+  }
+  .hero .hero-body strong{ color:var(--ink); font-weight:500; }
+
+  /* ---------- Cards: 我們能提供什麼 ---------- */
+  .section-head{ margin-bottom:28px; }
+  .section-label{
+    font-size:12px;
+    font-weight:700;
+    color:var(--amber);
+    letter-spacing:0.12em;
+    margin-bottom:8px;
+  }
+  .section-title{
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .offer-grid{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+  .offer-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:16px;
+    padding:20px;
+    display:flex;
+    gap:14px;
+    align-items:flex-start;
+  }
+  .offer-icon{
+    flex:0 0 auto;
+    width:38px;
+    height:38px;
+    border-radius:11px;
+    background:var(--teal-soft);
+    color:var(--teal);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+    font-weight:700;
+  }
+  .offer-text h3{
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .offer-text p{
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- 適合哪些人 ---------- */
+  .fit-section{
+    background:var(--ink);
+    color:#F3EFE6;
+    border-radius:0;
+  }
+  .fit-section .section-label{ color:#E7B67D; }
+  .fit-section .section-title{ color:#FBF8F1; }
+  .fit-list{ margin-top:22px; display:flex; flex-direction:column; gap:0; }
+  .fit-item{
+    display:flex;
+    gap:12px;
+    align-items:center;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,0.12);
+    font-size:15px;
+    color:#E8E4D9;
+  }
+  .fit-item:last-child{ border-bottom:none; }
+  .fit-check{
+    flex:0 0 auto;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    background:rgba(231,182,125,0.18);
+    color:#E7B67D;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:12px;
+    font-weight:700;
+  }
+
+  /* ---------- 媒合流程 (signature: path) ---------- */
+  .flow{ position:relative; }
+  .flow-track{
+    position:relative;
+    margin-top:30px;
+    padding-left:8px;
+  }
+  .flow-line{
+    position:absolute;
+    left:23px;
+    top:6px;
+    bottom:6px;
+    width:2px;
+    background-image:linear-gradient(var(--line) 60%, rgba(0,0,0,0) 0%);
+    background-position:left;
+    background-size:2px 12px;
+    background-repeat:repeat-y;
+  }
+  .flow-step{
+    position:relative;
+    display:flex;
+    gap:18px;
+    padding-bottom:32px;
+  }
+  .flow-step:last-child{ padding-bottom:0; }
+  .flow-num{
+    flex:0 0 auto;
+    width:46px;
+    height:46px;
+    border-radius:50%;
+    background:var(--card);
+    border:2px solid var(--amber);
+    color:var(--amber-deep);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:"Noto Serif TC",serif;
+    font-weight:700;
+    font-size:17px;
+    z-index:1;
+  }
+  .flow-step:last-child .flow-num{
+    background:var(--amber);
+    color:#FFF9F0;
+  }
+  .flow-content h3{
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:4px;
+    padding-top:8px;
+  }
+  .flow-content p{
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- 為什麼選擇我們 ---------- */
+  .why{
+    background:var(--teal-soft);
+  }
+  .why blockquote{
+    font-family:"Noto Serif TC",serif;
+    font-size:19px;
+    font-weight:500;
+    line-height:1.9;
+    color:var(--ink);
+    border-left:3px solid var(--teal);
+    padding-left:18px;
+    margin-bottom:20px;
+  }
+  .why p{
+    font-size:14.5px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- FAQ ---------- */
+  .faq-list{ margin-top:24px; display:flex; flex-direction:column; gap:10px; }
+  .faq-item{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:14px;
+    overflow:hidden;
+  }
+  .faq-item summary{
+    list-style:none;
+    cursor:pointer;
+    padding:16px 18px;
+    font-size:15px;
+    font-weight:700;
+    color:var(--ink);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:12px;
+  }
+  .faq-item summary::-webkit-details-marker{ display:none; }
+  .faq-item summary::after{
+    content:"+";
+    flex:0 0 auto;
+    font-size:18px;
+    color:var(--amber);
+    font-weight:700;
+    transition:transform .2s ease;
+  }
+  .faq-item[open] summary::after{ transform:rotate(45deg); }
+  .faq-item .faq-a{
+    padding:0 18px 16px;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Closing CTA ---------- */
+  .closing{
+    text-align:center;
+    padding-top:48px;
+    padding-bottom:60px;
+  }
+  .closing h2{
+    font-size:22px;
+    font-weight:700;
+    color:var(--ink);
+    margin-bottom:10px;
+    line-height:1.6;
+  }
+  .closing p{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    margin-bottom:26px;
+  }
+  .foot-note{
+    text-align:center;
+    font-size:12px;
+    color:#9CA9AF;
+    padding:0 28px 36px;
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="brand">職途<span>相伴</span></div>
+  </div>
+
+  <section class="hero">
+    <span class="eyebrow">求職媒合服務</span>
+    <h1 class="display">找工作一直沒有下文？<br>或許不是你不夠努力</h1>
+    <p class="hero-sub">而是一直沒有找到真正適合自己的機會。</p>
+    <p class="hero-body">
+      我們每天協助不同背景的求職者——無論是<strong>正在待業</strong>、<strong>想轉換跑道</strong>，
+      或希望利用空閒時間尋找合作機會，都能依照個人條件安排適合的職缺。
+      現在，就讓我們協助你找到下一份工作。
+    </p>
+    <a class="cta-btn large" href="http://www.1234.tw" target="_blank" rel="noopener">立即填寫資料</a>
+  </section>
+
+  <section class="offers">
+    <div class="section-head">
+      <div class="section-label">SERVICE</div>
+      <div class="section-title">我們能提供什麼？</div>
+    </div>
+    <div class="offer-grid">
+      <div class="offer-card">
+        <div class="offer-icon">✓</div>
+        <div class="offer-text">
+          <h3>多元工作機會</h3>
+          <p>依照你的條件、經驗與需求，媒合適合的合作機會，讓求職方向更明確。</p>
+        </div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-icon">✓</div>
+        <div class="offer-text">
+          <h3>完整職缺資訊</h3>
+          <p>工作內容、合作方式、作業流程及相關規範，都會於媒合前完整說明。</p>
+        </div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-icon">✓</div>
+        <div class="offer-text">
+          <h3>專人協助媒合</h3>
+          <p>從了解需求、安排職缺，到後續流程說明，都有專人協助。</p>
+        </div>
+      </div>
+      <div class="offer-card">
+        <div class="offer-icon">✓</div>
+        <div class="offer-text">
+          <h3>流程透明</h3>
+          <p>每個合作流程都會清楚告知，讓你了解每一步安排。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="fit-section">
+    <div class="section-head">
+      <div class="section-label">FOR YOU</div>
+      <div class="section-title">適合哪些人？</div>
+    </div>
+    <p style="color:#C7C1B2;font-size:14px;margin-top:4px;">如果你符合以下其中一項，都歡迎填寫資料。</p>
+    <div class="fit-list">
+      <div class="fit-item"><span class="fit-check">✓</span>想尋找新的工作機會</div>
+      <div class="fit-item"><span class="fit-check">✓</span>想了解不同職缺內容</div>
+      <div class="fit-item"><span class="fit-check">✓</span>想轉換工作環境</div>
+      <div class="fit-item"><span class="fit-check">✓</span>希望累積不同工作經驗</div>
+      <div class="fit-item"><span class="fit-check">✓</span>正在規劃下一份工作</div>
+    </div>
+  </section>
+
+  <section class="flow">
+    <div class="section-head">
+      <div class="section-label">HOW IT WORKS</div>
+      <div class="section-title">媒合流程</div>
+    </div>
+    <div class="flow-track">
+      <div class="flow-line"></div>
+      <div class="flow-step">
+        <div class="flow-num">1</div>
+        <div class="flow-content">
+          <h3>填寫基本資料</h3>
+          <p>留下聯絡方式與基本資訊，方便安排後續媒合。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">2</div>
+        <div class="flow-content">
+          <h3>了解需求</h3>
+          <p>由專人了解你的工作需求、可配合時間及希望的工作方向。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">3</div>
+        <div class="flow-content">
+          <h3>安排適合職缺</h3>
+          <p>依照條件安排適合的工作機會，並提供完整職缺資訊。</p>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="flow-num">4</div>
+        <div class="flow-content">
+          <h3>開始後續流程</h3>
+          <p>確認合作意願後，依照公司安排進行後續流程。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="why">
+    <div class="section-head">
+      <div class="section-label">WHY US</div>
+      <div class="section-title">為什麼很多人選擇我們？</div>
+    </div>
+    <blockquote>因為找工作不該只是一直投履歷。</blockquote>
+    <p>我們更重視的是依照每位求職者的條件，協助找到真正適合的工作方向。減少盲目投遞，也讓每一次媒合都更有效率。</p>
+  </section>
+
+  <section class="faq">
+    <div class="section-head">
+      <div class="section-label">FAQ</div>
+      <div class="section-title">常見問題</div>
+    </div>
+    <div class="faq-list">
+      <details class="faq-item">
+        <summary>需要有相關經驗嗎？</summary>
+        <div class="faq-a">不一定。每份工作需求不同，媒合時會依照條件安排。</div>
+      </details>
+      <details class="faq-item">
+        <summary>可以先了解工作內容嗎？</summary>
+        <div class="faq-a">可以。媒合前都會提供完整資訊，確認適合再決定是否繼續。</div>
+      </details>
+      <details class="faq-item">
+        <summary>需要支付任何費用嗎？</summary>
+        <div class="faq-a">不需要。填寫資料及了解職缺皆不需支付任何費用。</div>
+      </details>
+      <details class="faq-item">
+        <summary>一定要接受安排嗎？</summary>
+        <div class="faq-a">不用。了解完整內容後，可依照自己的意願決定是否進一步合作。</div>
+      </details>
+    </div>
+  </section>
+
+  <section class="closing">
+    <h2 class="display">準備好開始下一份工作了嗎？</h2>
+    <p>留下你的基本資料，讓我們依照你的需求，協助安排適合的工作機會。</p>
+    <a class="cta-btn large" href="http://www.1234.tw" target="_blank" rel="noopener">立即填寫資料</a>
+  </section>
+
+  <p class="foot-note">下一份工作，或許就從現在開始。不用一直盲目投履歷，讓專人協助你找到更適合的工作機會。</p>
+
+</div>
+</body>
+</html>
